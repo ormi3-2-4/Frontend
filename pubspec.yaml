@@ -36,8 +36,6 @@ dependencies:
 
   # 지도
   google_maps_flutter: ^2.5.0
-
-  # GPS
   geolocator: ^10.1.0
 
   # 라우팅
@@ -57,6 +55,7 @@ dependencies:
 
   # 설정
   flutter_dotenv: ^5.1.0
+  flutter_screenutil: ^5.9.0
 
 
 
