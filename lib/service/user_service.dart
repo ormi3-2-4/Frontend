@@ -9,11 +9,21 @@ class UserService extends GetxService {
 
   bool get isLogin => user.value != null;
 
-  void login() {}
+  Future<void> autoLogin() async {
+    print("autoLogin");
+  }
 
-  void register() {}
+  Future<void> login() async {}
 
-  void logout() {
+  Future<void> register() async {}
+
+  Future<void> logout() async {
     user.value = null;
+  }
+
+  @override
+  Future<void> onInit() async {
+    await autoLogin();
+    super.onInit();
   }
 }
