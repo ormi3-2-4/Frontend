@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key, required this.title});
@@ -33,6 +35,34 @@ class _MainScreenState extends State<MainScreen> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+  Future<void> checkPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        await Geolocator.openLocationSettings();
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    checkPermission();
+    super.initState();
   }
 
   @override
@@ -83,7 +113,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () => context.go("/map"),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
