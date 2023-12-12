@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ormi2_4/common/buildcontext_utils.dart';
 
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({super.key});
@@ -67,13 +68,27 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               decoration: decoration(isPassword: true),
             ),
             SizedBox(height: 30.h),
-            ElevatedButton(
-                onPressed: () async {
-                  if (formKey.currentState!.validate()) {
-                    //TODO: 로그인
-                  }
-                },
-                child: Text("로그인"))
+            Center(
+              child: SizedBox(
+                height: 50.h,
+                width: context.screenWidth * 0.6,
+                child: ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        //TODO: 로그인
+                      }
+                    },
+                    child: Text("로그인")),
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {},
+                child: Text("회원가입"),
+              ),
+            )
           ],
         ),
       ),
