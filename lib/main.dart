@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ormi2_4/config/router.dart';
+import 'package:ormi2_4/service/storage_service.dart';
 import 'package:ormi2_4/service/user_service.dart';
 
 import 'config/theme.dart';
@@ -15,6 +16,8 @@ Future<void> main() async {
 
   // GetService 로드
   Get.put(UserService(), permanent: true);
+  Get.put(StorageService(), permanent: true);
+
   runApp(const MyApp());
 }
 
