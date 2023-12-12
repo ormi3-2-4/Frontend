@@ -7,6 +7,8 @@ class UserService extends GetxService {
 
   Rx<User?> user = null.obs;
 
+  bool get isLogin => user.value != null;
+
   void login() {}
 
   void register() {}
