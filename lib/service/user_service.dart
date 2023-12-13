@@ -34,7 +34,7 @@ class UserService extends GetxService {
     final res = await AccountRepository.instance.login(request);
 
     user.value = switch (res) {
-      BaseResponseData() => user.value = res.data,
+      BaseResponseData() => user.value = null,
       BaseResponseError() => user.value = null,
       BaseResponse() => null,
     };

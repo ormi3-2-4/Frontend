@@ -15,8 +15,8 @@ Future<void> main() async {
   Logger().d(dotenv.env["MAP_API_KEY"]);
 
   // GetService 로드
-  Get.put(UserService(), permanent: true);
   Get.put(StorageService(), permanent: true);
+  Get.put(UserService(), permanent: true);
 
   runApp(const MyApp());
 }
