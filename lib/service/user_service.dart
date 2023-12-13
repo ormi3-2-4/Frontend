@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
+import 'package:ormi2_4/models/Token.dart';
 import 'package:ormi2_4/models/response/base_response.dart';
+import 'package:ormi2_4/models/response/user_response.dart';
 import 'package:ormi2_4/repository/account_repository.dart';
+import 'package:ormi2_4/service/dio_service.dart';
 import 'package:ormi2_4/service/storage_service.dart';
 
 import '../models/request/user_requests.dart';
@@ -10,7 +13,7 @@ class UserService extends GetxService {
   static UserService get instance => Get.find();
   RxBool isLoading = false.obs;
 
-  Rx<User?> user = null.obs;
+  Rx<User?> user = (null).obs;
 
   bool get isLogin => user.value != null;
 
@@ -31,13 +34,17 @@ class UserService extends GetxService {
     final request = UserLoginRequest(email: email, password: password);
 
     // 로그인 요청
-    final res = await AccountRepository.instance.login(request);
-
-    user.value = switch (res) {
-      BaseResponseData() => user.value = null,
-      BaseResponseError() => user.value = null,
-      BaseResponse() => null,
-    };
+    final res = await AccountRepository(DioService.instance.dio).login(request);
+    switch (res) {
+      case BaseResponseData():
+        final response = res.data as UserLoginResponse;
+        user = response.user.obs;
+        await writeToken(response.token);
+        break;
+      case BaseResponseError():
+        user.value = null;
+        break;
+    }
 
     isLoading.value = false;
   }
@@ -48,6 +55,11 @@ class UserService extends GetxService {
 
   Future<void> logout() async {
     user.value = null;
+  }
+
+  Future<void> writeToken(Token token) async {
+    await StorageService.instance.storage.write(key: "access_token", value: token.accessToken);
+    await StorageService.instance.storage.write(key: "refresh_token", value: token.refreshToken);
   }
 
   @override

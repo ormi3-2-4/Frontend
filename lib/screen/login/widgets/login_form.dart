@@ -24,7 +24,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
   final userService = UserService.instance;
 
-  String? passwordErrorText = null;
+  String? passwordErrorText;
 
   InputDecoration decoration({bool isPassword = false}) {
     return InputDecoration(
@@ -65,14 +65,16 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("이메일"),
+            const Text("이메일"),
             TextFormField(
+              controller: emailController,
               decoration: decoration(),
               validator: validateEmail,
             ),
             SizedBox(height: 30.h),
-            Text("비밀번호"),
+            const Text("비밀번호"),
             TextFormField(
+              controller: passwordController,
               obscureText: true,
               decoration: decoration(isPassword: true),
             ),
@@ -96,7 +98,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                           context.go(StartScreen.routePath);
                         }
                       },
-                      child: Text("로그인"));
+                      child: const Text("로그인"));
                 }),
               ),
             ),
@@ -105,7 +107,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () => context.go(RegisterScreen.routePath),
-                child: Text("회원가입"),
+                child: const Text("회원가입"),
               ),
             )
           ],
