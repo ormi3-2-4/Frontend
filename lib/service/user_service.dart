@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:ormi2_4/models/response/base_response.dart';
+import 'package:ormi2_4/repository/account_repository.dart';
 import 'package:ormi2_4/service/storage_service.dart';
 
 import '../models/request/user_requests.dart';
@@ -18,6 +20,7 @@ class UserService extends GetxService {
 
     if (refreshToken == null) {
       isLoading.value = false;
+      return;
     }
 
     // 자동 로그인 로직
@@ -28,6 +31,15 @@ class UserService extends GetxService {
     final request = UserLoginRequest(email: email, password: password);
 
     // 로그인 요청
+    final res = await AccountRepository.instance.login(request);
+
+    user.value = switch (res) {
+      BaseResponseData() => user.value = res.data,
+      BaseResponseError() => user.value = null,
+      BaseResponse() => null,
+    };
+
+    isLoading.value = false;
   }
 
   Future<void> register() async {}
