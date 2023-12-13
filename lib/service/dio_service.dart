@@ -9,6 +9,8 @@ class DioService extends GetxService {
     baseUrl: 'http://localhost:8000',
   ));
 
+  Dio get dio => _dio;
+
   Future<void> addJwt() async {
     final accessToken = await StorageService.instance.storage.read(key: "access_token");
     _dio.options.headers.addAll({"Authorization": "Bearer $accessToken"});

@@ -6,5 +6,5 @@ class _User {
   final String prefix = '/user';
 
   String get login => '$prefix/login/';
-  String get signup => '$prefix/signup/';
+  String get signup => '$prefix/register/';
 }

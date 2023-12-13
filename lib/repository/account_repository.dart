@@ -1,12 +1,26 @@
+import 'package:dio/dio.dart';
+import 'package:ormi2_4/config/endpoint.dart';
 import 'package:ormi2_4/models/request/user_requests.dart';
 import 'package:ormi2_4/models/response/base_response.dart';
+import 'package:ormi2_4/models/response/user_response.dart';
+
+import '../models/response/error.dart';
 
 class AccountRepository {
-  // make this class a singleton class
-  AccountRepository._();
-  static final AccountRepository instance = AccountRepository._();
+  final Dio dio;
+
+  const AccountRepository(this.dio);
 
   Future<BaseResponse> login(UserLoginRequest request) async {
+    try {
+      final res = await dio.post(Endpoint.user.login, data: request.toJson());
+      final responseModel = BaseResponseData.fromJson(
+          res.data, (json) => UserLoginResponse.fromJson(json as Map<String, dynamic>));
+      return responseModel;
+    } on DioException catch (e) {
+      return BaseResponse.error(AppError(error: e.error!));
+    }
+
     return const BaseResponse.data(true);
   }
 

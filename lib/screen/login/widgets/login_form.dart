@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
 import 'package:ormi2_4/screen/register/register_screen.dart';
+import 'package:ormi2_4/screen/start/start_screen.dart';
 
 import '../../../service/user_service.dart';
 import '../../main/main_screen.dart';
@@ -23,7 +24,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
   final userService = UserService.instance;
 
-  String? passwordErrorText = null;
+  String? passwordErrorText;
 
   InputDecoration decoration({bool isPassword = false}) {
     return InputDecoration(
@@ -64,14 +65,16 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("이메일"),
+            const Text("이메일"),
             TextFormField(
+              controller: emailController,
               decoration: decoration(),
               validator: validateEmail,
             ),
             SizedBox(height: 30.h),
-            Text("비밀번호"),
+            const Text("비밀번호"),
             TextFormField(
+              controller: passwordController,
               obscureText: true,
               decoration: decoration(isPassword: true),
             ),
@@ -92,9 +95,10 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                         if (formKey.currentState!.validate()) {
                           //TODO: 로그인
                           await userService.login(emailController.text, passwordController.text);
+                          context.go(StartScreen.routePath);
                         }
                       },
-                      child: Text("로그인"));
+                      child: const Text("로그인"));
                 }),
               ),
             ),
@@ -103,7 +107,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () => context.go(RegisterScreen.routePath),
-                child: Text("회원가입"),
+                child: const Text("회원가입"),
               ),
             )
           ],
