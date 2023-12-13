@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
 import 'package:ormi2_4/screen/register/register_screen.dart';
+import 'package:ormi2_4/screen/start/start_screen.dart';
 
 import '../../../service/user_service.dart';
 import '../../main/main_screen.dart';
@@ -92,6 +93,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                         if (formKey.currentState!.validate()) {
                           //TODO: 로그인
                           await userService.login(emailController.text, passwordController.text);
+                          context.go(StartScreen.routePath);
                         }
                       },
                       child: Text("로그인"));
