@@ -3,8 +3,8 @@ abstract class Endpoint {
 }
 
 class _User {
-  final String prefix = '/user';
+  final String _prefix = '/user';
 
-  String get login => '$prefix/login/';
-  String get signup => '$prefix/register/';
+  String get login => '$_prefix/login/';
+  String get register => '$_prefix/register/';
 }

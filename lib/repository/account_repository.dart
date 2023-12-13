@@ -20,12 +20,17 @@ class AccountRepository {
     } on DioException catch (e) {
       return BaseResponse.error(AppError(error: e.error!));
     }
-
-    return const BaseResponse.data(true);
   }
 
-  Future<BaseResponse> signup(String email, String password, String nickname) async {
-    return const BaseResponse.data(true);
+  Future<BaseResponse> register(UserRegisterRequest request) async {
+    try {
+      final res = await dio.post(Endpoint.user.register, data: request.toJson());
+      final responseModel = BaseResponseData.fromJson(
+          res.data, (json) => UserLoginResponse.fromJson(json as Map<String, dynamic>));
+      return responseModel;
+    } on DioException catch (e) {
+      return BaseResponse.error(AppError(error: e.error!));
+    }
   }
 
   Future<BaseResponse> refreshToken() async {
