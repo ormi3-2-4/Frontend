@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
+import 'package:ormi2_4/screen/main/main_screen.dart';
+import 'package:ormi2_4/service/user_service.dart';
 
-class RegisterFormWidget extends StatefulWidget {
+class RegisterFormWidget extends HookWidget {
   const RegisterFormWidget({super.key});
 
   @override
-  State<RegisterFormWidget> createState() => _RegisterFormWidgetState();
-}
-
-class _RegisterFormWidgetState extends State<RegisterFormWidget> {
-  final emailController = TextEditingController();
-  final nicknameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final password2Controller = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-  @override
   Widget build(BuildContext context) {
+    final emailController = useTextEditingController();
+
+    final nicknameController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final password2Controller = useTextEditingController();
+    final formKey = GlobalKey<FormState>();
+    final userService = UserService.instance;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Form(
         key: formKey,
         child: Column(
           children: [
-            Align(alignment: Alignment.centerLeft, child: Text("이메일")),
+            const Align(alignment: Alignment.centerLeft, child: Text("이메일")),
             TextFormField(
               controller: emailController,
               validator: (value) {
@@ -32,41 +34,60 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                 if (!reg.hasMatch(value!)) {
                   return "이메일 형식이 맞지 않습니다.";
                 }
+                return null;
               },
             ),
-            Align(alignment: Alignment.centerLeft, child: Text("닉네임")),
+            const Align(alignment: Alignment.centerLeft, child: Text("닉네임")),
             TextFormField(controller: nicknameController),
-            Align(alignment: Alignment.centerLeft, child: Text("비밀번호")),
+            const Align(alignment: Alignment.centerLeft, child: Text("비밀번호")),
             TextFormField(
               controller: passwordController,
+              obscureText: true,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "비밀번호를 입력해주세요";
                 }
+                return null;
               },
             ),
-            Align(alignment: Alignment.centerLeft, child: Text("비밀번호 확인")),
+            const Align(alignment: Alignment.centerLeft, child: Text("비밀번호 확인")),
             TextFormField(
               controller: password2Controller,
+              obscureText: true,
               validator: (value) {
                 if (value != passwordController.text || value!.isEmpty) {
                   return "비밀번호가 맞지 않습니다.";
                 }
+                return null;
               },
             ),
             SizedBox(height: 30.h),
             SizedBox(
               width: context.screenWidth * 0.7,
               height: 40.h,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    //TODO: 회원가입
+              child: Obx(
+                () {
+                  if (userService.isLogin) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      context.go(MainScreen.routePath);
+                    });
                   }
+                  return ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        //TODO: 회원가입
+                        await userService.register(
+                          emailController.text,
+                          nicknameController.text,
+                          passwordController.text,
+                        );
+                      }
+                    },
+                    child: const Text("회원 가입하기"),
+                  );
                 },
-                child: Text("회원 가입하기"),
               ),
-            )
+            ),
           ],
         ),
       ),

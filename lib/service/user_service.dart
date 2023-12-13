@@ -49,7 +49,24 @@ class UserService extends GetxService {
     isLoading.value = false;
   }
 
-  Future<void> register() async {}
+  Future<void> register(String email, String nickname, String password) async {
+    isLoading.value = true;
+    final request = UserRegisterRequest(email: email, nickname: nickname, password: password);
+
+    // 회원가입 요청
+    final res = await AccountRepository(DioService.instance.dio).register(request);
+    switch (res) {
+      case BaseResponseData():
+        final response = res.data as UserLoginResponse;
+        user = response.user.obs;
+        await writeToken(response.token);
+        break;
+      case BaseResponseError():
+        user.value = null;
+        break;
+    }
+    isLoading.value = false;
+  }
 
   Future<void> uploadProfileImage() async {}
 

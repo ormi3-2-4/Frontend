@@ -11,3 +11,13 @@ class UserLoginRequest with _$UserLoginRequest {
     required String password,
   }) = _UserLoginRequest;
 }
+
+@Freezed(fromJson: false, toJson: true)
+class UserRegisterRequest with _$UserRegisterRequest {
+  const UserRegisterRequest._();
+  const factory UserRegisterRequest({
+    required String email,
+    required String nickname,
+    required String password,
+  }) = _UserRegisterRequest;
+}
