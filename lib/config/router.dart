@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ormi2_4/screen/index/index_screen.dart';
 import 'package:ormi2_4/screen/login/login_screen.dart';
-import 'package:ormi2_4/screen/main/main_screen.dart';
 import 'package:ormi2_4/screen/register/register_screen.dart';
 
 import '../screen/google_map.dart';
@@ -28,27 +26,6 @@ abstract class AppRouter {
           path: RegisterScreen.routePath,
           name: RegisterScreen.routeName,
           builder: (context, state) => const RegisterScreen()),
-
-      // 메인 화면
-      StatefulShellRoute.indexedStack(
-        parentNavigatorKey: rootNavigatorKey,
-        builder: (context, state, navigationShell) => IndexScreen(navigationShell),
-        branches: [
-          StatefulShellBranch(
-            initialLocation: MainScreen.routePath,
-            navigatorKey: shellNavigatorKey.first,
-            routes: [
-              GoRoute(
-                path: MainScreen.routePath,
-                name: MainScreen.routeName,
-                builder: (context, state) => const MainScreen(
-                  title: 'Flutter Demo',
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
 
       // 시작화면
       GoRoute(
