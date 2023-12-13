@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
+import 'package:ormi2_4/screen/register/register_screen.dart';
+
+import '../../../service/user_service.dart';
+import '../../main/main_screen.dart';
 
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({super.key});
@@ -14,6 +20,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   final passwordController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+
+  final userService = UserService.instance;
 
   String? passwordErrorText = null;
 
@@ -72,20 +80,29 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               child: SizedBox(
                 height: 50.h,
                 width: context.screenWidth * 0.6,
-                child: ElevatedButton(
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        //TODO: 로그인
-                      }
-                    },
-                    child: Text("로그인")),
+                child: Obx(() {
+                  if (userService.isLogin) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      context.go(MainScreen.routePath);
+                    });
+                  }
+
+                  return ElevatedButton(
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          //TODO: 로그인
+                          await userService.login(emailController.text, passwordController.text);
+                        }
+                      },
+                      child: Text("로그인"));
+                }),
               ),
             ),
             SizedBox(height: 20.h),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () => context.go(RegisterScreen.routePath),
                 child: Text("회원가입"),
               ),
             )

@@ -50,3 +50,7 @@ app.*.map.json
 # ios
 Podfile.lock
 pubspec.lock
+
+# generated file
+*.freezed.dart
+*.g.dart
