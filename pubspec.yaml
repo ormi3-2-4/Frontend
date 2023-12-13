@@ -33,6 +33,7 @@ dependencies:
 
   # 상태관리
   get: ^4.6.6
+  flutter_hooks:
 
   # 지도
   google_maps_flutter: ^2.5.0
