@@ -18,7 +18,7 @@ class AccountRepository {
           res.data, (json) => UserLoginResponse.fromJson(json as Map<String, dynamic>));
       return responseModel;
     } on DioException catch (e) {
-      return BaseResponse.error(AppError(error: e.error!));
+      return BaseResponse.error(AppError(error: e.error ?? ''));
     }
   }
 

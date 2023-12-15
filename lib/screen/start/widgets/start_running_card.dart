@@ -13,34 +13,38 @@ class StartRunningCardWidget extends StatelessWidget {
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: const Color(0xff424242)),
       child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "오늘도 힘차게 달려볼까요?",
-                      style: context.textTheme.headlineMedium,
-                    ),
-                    SizedBox(height: 10.h),
-                    ElevatedButton(onPressed: () {
-                      //TODO: 메인 화면 이동
-                    }, child: const Text('운동 시작'))
-                  ],
-                ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "오늘도 힘차게 달려볼까요?",
+                    style: context.textTheme.headlineMedium,
+                  ),
+                  SizedBox(height: 10.h),
+                  ElevatedButton(
+                      onPressed: () {
+                        //TODO: 메인 화면 이동
+                      },
+                      child: const Text('운동 시작'))
+                ],
               ),
             ),
-            Expanded(
-                child: Padding(
+          ),
+          Expanded(
+            child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: const Placeholder(),
-            ))
-          ]),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
