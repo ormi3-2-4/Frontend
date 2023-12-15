@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/screen/login/login_screen.dart';
 import 'package:ormi2_4/screen/register/register_screen.dart';
+import 'package:ormi2_4/service/user_service.dart';
 
 import '../screen/google_map.dart';
 import '../screen/start/start_screen.dart';
@@ -14,6 +15,13 @@ abstract class AppRouter {
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     initialLocation: LoginScreen.routePath,
+    redirect: (context, state) {
+      if (!UserService.instance.isLogin) {
+        return LoginScreen.routePath;
+      }
+
+      return null;
+    },
     routes: [
       // 로그인
       GoRoute(
