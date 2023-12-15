@@ -19,11 +19,11 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
             Text("런닝 메이트", style: context.textTheme.displayLarge),
             SizedBox(height: 50.h),
-            LoginFormWidget(),
-            Spacer(),
+            const LoginFormWidget(),
+            const Spacer(),
           ],
         ),
       ),

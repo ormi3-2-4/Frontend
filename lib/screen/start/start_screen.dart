@@ -1,15 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:ormi2_4/screen/record/state/record_state.dart';
 import 'package:ormi2_4/screen/start/widgets/menu_cards.dart';
 import 'package:ormi2_4/screen/start/widgets/start_running_card.dart';
 import 'package:ormi2_4/service/user_service.dart';
 
-class StartScreen extends StatelessWidget {
+class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
 
   static const routePath = '/start';
   static const routeName = 'StartScreen';
+
+  @override
+  State<StartScreen> createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen> {
+  Future<void> getPermission() async {
+    bool isServiceEnable;
+    LocationPermission permission;
+
+    isServiceEnable = await Geolocator.isLocationServiceEnabled();
+    if (!isServiceEnable) {
+      await Geolocator.openLocationSettings();
+    }
+
+    permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.deniedForever) {
+      await Geolocator.openAppSettings();
+    }
+
+    while (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+  }
+
+  @override
+  void initState() {
+    getPermission();
+    Get.put(RecordController());
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +66,8 @@ class StartScreen extends StatelessWidget {
                       backgroundImage:
                           user.profileImage == null ? null : NetworkImage(user.profileImage!),
                       child: InkWell(
-                          borderRadius: BorderRadius.circular(100.r), onTap: () {
+                          borderRadius: BorderRadius.circular(100.r),
+                          onTap: () {
                             //TODO: 프로필 화면으로 이동
                           }),
                     );
