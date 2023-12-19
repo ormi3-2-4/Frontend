@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/screen/login/login_screen.dart';
 import 'package:ormi2_4/screen/record/record_screen.dart';
+import 'package:ormi2_4/screen/record_history/record_history_screen.dart';
 import 'package:ormi2_4/screen/register/register_screen.dart';
 
 import '../screen/start/start_screen.dart';
@@ -42,6 +43,13 @@ abstract class AppRouter {
         path: RecordScreen.routePath,
         name: RecordScreen.routeName,
         builder: (context, state) => const RecordScreen(),
+      ),
+
+      // 기록 히스토리
+      GoRoute(
+        path: RecrodHistoryScreen.routhPath,
+        name: RecordScreen.routeName,
+        builder: (context, state) => const RecrodHistoryScreen(),
       )
     ],
   );
