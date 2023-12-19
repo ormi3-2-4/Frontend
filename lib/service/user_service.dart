@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ormi2_4/models/Token.dart';
+import 'package:ormi2_4/models/token.dart';
 import 'package:ormi2_4/models/response/base_response.dart';
 import 'package:ormi2_4/models/response/user_response.dart';
 import 'package:ormi2_4/repository/account_repository.dart';
@@ -44,6 +44,8 @@ class UserService extends GetxService {
       case BaseResponseError():
         user.value = null;
         break;
+      default:
+        break;
     }
 
     isLoading.value = false;
@@ -63,6 +65,9 @@ class UserService extends GetxService {
         break;
       case BaseResponseError():
         user.value = null;
+        break;
+
+      default:
         break;
     }
     isLoading.value = false;

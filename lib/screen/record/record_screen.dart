@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ormi2_4/screen/record/state/record_state.dart';
 
 class RecordScreen extends HookWidget {
@@ -14,6 +16,28 @@ class RecordScreen extends HookWidget {
 
     print(controller.currentLocation.value);
 
-    return const Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        child: Obx(
+          () => GoogleMap(
+            initialCameraPosition:
+                CameraPosition(target: controller.currentLocation.value, zoom: 18),
+            mapToolbarEnabled: true,
+            compassEnabled: true,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            mapType: MapType.normal,
+            zoomControlsEnabled: true,
+            onMapCreated: (mapController) {
+              mapController.animateCamera(
+                CameraUpdate.newCameraPosition(
+                  CameraPosition(target: controller.currentLocation.value, zoom: 18),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
