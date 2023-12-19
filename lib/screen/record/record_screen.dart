@@ -19,22 +19,46 @@ class RecordScreen extends HookWidget {
     return Scaffold(
       body: SafeArea(
         child: Obx(
-          () => GoogleMap(
-            initialCameraPosition:
-                CameraPosition(target: controller.currentLocation.value, zoom: 18),
-            mapToolbarEnabled: true,
-            compassEnabled: true,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            mapType: MapType.normal,
-            zoomControlsEnabled: true,
-            onMapCreated: (mapController) {
-              mapController.animateCamera(
-                CameraUpdate.newCameraPosition(
-                  CameraPosition(target: controller.currentLocation.value, zoom: 18),
+          () => Stack(
+            children: [
+              // 지도
+              GoogleMap(
+                initialCameraPosition:
+                    CameraPosition(target: controller.currentLocation.value, zoom: 18),
+                mapToolbarEnabled: true,
+                compassEnabled: true,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                mapType: MapType.normal,
+                zoomControlsEnabled: true,
+                onMapCreated: (mapController) {
+                  mapController.animateCamera(
+                    CameraUpdate.newCameraPosition(
+                      CameraPosition(target: controller.currentLocation.value, zoom: 18),
+                    ),
+                  );
+                },
+              ),
+
+              //
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text("일시 정지"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text("종료"),
+                    )
+                  ],
                 ),
-              );
-            },
+              ),
+            ],
           ),
         ),
       ),
