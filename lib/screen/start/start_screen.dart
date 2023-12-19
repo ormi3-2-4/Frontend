@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:ormi2_4/screen/record/state/record_state.dart';
 import 'package:ormi2_4/screen/start/widgets/menu_cards.dart';
 import 'package:ormi2_4/screen/start/widgets/start_running_card.dart';
 import 'package:ormi2_4/service/user_service.dart';
@@ -41,8 +40,6 @@ class _StartScreenState extends State<StartScreen> {
   @override
   void initState() {
     getPermission();
-    Get.put(RecordController());
-
     super.initState();
   }
 
@@ -59,12 +56,12 @@ class _StartScreenState extends State<StartScreen> {
                 children: [
                   Text("런닝 메이트", style: context.textTheme.displayMedium),
                   Obx(() {
-                    final user = UserService.instance.user.value!;
+                    final user = UserService.instance.user.value;
 
                     return CircleAvatar(
                       radius: 35.r,
                       backgroundImage:
-                          user.profileImage == null ? null : NetworkImage(user.profileImage!),
+                          user?.profileImage == null ? null : NetworkImage(user!.profileImage!),
                       child: InkWell(
                           borderRadius: BorderRadius.circular(100.r),
                           onTap: () {

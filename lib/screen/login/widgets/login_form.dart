@@ -7,7 +7,6 @@ import 'package:ormi2_4/screen/register/register_screen.dart';
 import 'package:ormi2_4/screen/start/start_screen.dart';
 
 import '../../../service/user_service.dart';
-import '../../main/main_screen.dart';
 
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({super.key});
@@ -84,18 +83,14 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 height: 50.h,
                 width: context.screenWidth * 0.6,
                 child: Obx(() {
-                  if (userService.isLogin) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      context.go(MainScreen.routePath);
-                    });
-                  }
-
                   return ElevatedButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          //TODO: 로그인
                           await userService.login(emailController.text, passwordController.text);
-                          context.go(StartScreen.routePath);
+
+                          if (userService.isLogin) {
+                            context.go(StartScreen.routePath);
+                          }
                         }
                       },
                       child: const Text("로그인"));
