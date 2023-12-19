@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'Token.freezed.dart';
-part 'Token.g.dart';
+part 'token.freezed.dart';
+part 'token.g.dart';
 
 @freezed
 class Token with _$Token {

@@ -14,9 +14,8 @@ class AccountRepository {
   Future<BaseResponse> login(UserLoginRequest request) async {
     try {
       final res = await dio.post(Endpoint.user.login, data: request.toJson());
-      final responseModel = BaseResponseData.fromJson(
-          res.data, (json) => UserLoginResponse.fromJson(json as Map<String, dynamic>));
-      return responseModel;
+      final responseModel = UserLoginResponse.fromJson(res.data);
+      return BaseResponse.data(responseModel);
     } on DioException catch (e) {
       return BaseResponse.error(AppError(error: e.error ?? ''));
     }

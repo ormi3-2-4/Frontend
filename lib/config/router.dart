@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/screen/login/login_screen.dart';
+import 'package:ormi2_4/screen/record/record_screen.dart';
 import 'package:ormi2_4/screen/register/register_screen.dart';
-import 'package:ormi2_4/service/user_service.dart';
 
-import '../screen/google_map.dart';
 import '../screen/start/start_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -16,10 +15,6 @@ abstract class AppRouter {
     navigatorKey: rootNavigatorKey,
     initialLocation: LoginScreen.routePath,
     redirect: (context, state) {
-      if (!UserService.instance.isLogin) {
-        return LoginScreen.routePath;
-      }
-
       return null;
     },
     routes: [
@@ -42,10 +37,11 @@ abstract class AppRouter {
         builder: (context, state) => const StartScreen(),
       ),
 
+      // 기록 화면
       GoRoute(
-        path: '/map',
-        name: "google map",
-        builder: (context, state) => const GoogleMapWidget(),
+        path: RecordScreen.routePath,
+        name: RecordScreen.routeName,
+        builder: (context, state) => const RecordScreen(),
       )
     ],
   );

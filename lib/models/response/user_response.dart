@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ormi2_4/models/user_model.dart';
 
-import '../Token.dart';
+import '../token.dart';
 
 part 'user_response.freezed.dart';
 part 'user_response.g.dart';

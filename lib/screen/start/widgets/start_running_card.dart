@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
+import 'package:ormi2_4/screen/record/record_screen.dart';
 
 class StartRunningCardWidget extends StatelessWidget {
   const StartRunningCardWidget({super.key});
@@ -30,7 +32,7 @@ class StartRunningCardWidget extends StatelessWidget {
                   SizedBox(height: 10.h),
                   ElevatedButton(
                       onPressed: () {
-                        //TODO: 메인 화면 이동
+                        context.push(RecordScreen.routePath);
                       },
                       child: const Text('운동 시작'))
                 ],
