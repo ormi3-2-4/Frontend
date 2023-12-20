@@ -16,11 +16,3 @@ class DioService extends GetxService {
     _dio.options.headers.addAll({"Authorization": "Bearer $accessToken"});
   }
 }
-
-enum Sample {
-  a("에이", "설명"),
-  b("비", "설명");
-
-  final String kr, desc;
-  const Sample(this.kr, this.desc);
-}

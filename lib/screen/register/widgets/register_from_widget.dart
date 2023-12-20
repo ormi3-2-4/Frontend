@@ -67,7 +67,7 @@ class RegisterFormWidget extends HookWidget {
               height: 40.h,
               child: Obx(
                 () {
-                  if (userService.isLogin) {
+                  if (userService.isLogin.value) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       context.go(MainScreen.routePath);
                     });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
 import 'package:ormi2_4/screen/register/register_screen.dart';
@@ -8,22 +8,8 @@ import 'package:ormi2_4/screen/start/start_screen.dart';
 
 import '../../../service/user_service.dart';
 
-class LoginFormWidget extends StatefulWidget {
+class LoginFormWidget extends HookWidget {
   const LoginFormWidget({super.key});
-
-  @override
-  State<LoginFormWidget> createState() => _LoginFormWidgetState();
-}
-
-class _LoginFormWidgetState extends State<LoginFormWidget> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
-  final formKey = GlobalKey<FormState>();
-
-  final userService = UserService.instance;
-
-  String? passwordErrorText;
 
   InputDecoration decoration({bool isPassword = false}) {
     return InputDecoration(
@@ -39,7 +25,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         borderRadius: BorderRadius.circular(10.0),
         borderSide: const BorderSide(color: Colors.red),
       ),
-      errorText: isPassword ? passwordErrorText : null,
     );
   }
 
@@ -57,6 +42,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final formKey = GlobalKey<FormState>();
+    final userService = UserService.instance;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Form(
@@ -82,19 +72,17 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               child: SizedBox(
                 height: 50.h,
                 width: context.screenWidth * 0.6,
-                child: Obx(() {
-                  return ElevatedButton(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          await userService.login(emailController.text, passwordController.text);
+                child: ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        await userService.login(emailController.text, passwordController.text);
 
-                          if (userService.isLogin) {
-                            context.go(StartScreen.routePath);
-                          }
+                        if (userService.isLogin.value) {
+                          context.go(StartScreen.routePath);
                         }
-                      },
-                      child: const Text("로그인"));
-                }),
+                      }
+                    },
+                    child: const Text("로그인")),
               ),
             ),
             SizedBox(height: 20.h),
