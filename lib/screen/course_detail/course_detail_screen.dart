@@ -14,24 +14,24 @@ class CourseDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CourseController.instance;
-    final course = controller.courseDetail.value;
+
     return Scaffold(
-      appBar: AppBar(title: Obx(() => Text(course?.title ?? ""))),
-      body: Obx(
-        () => FutureBuilder(
-          future: controller.getCourseDetail(courseId),
-          builder: (context, snapshot) {
-            if (controller.isDetailError.isTrue) {
-              return const Placeholder();
-            }
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
+      appBar: AppBar(
+        title: const Text("Course Detail"),
+      ),
+      body: FutureBuilder(
+        future: controller.getCourseDetail(courseId),
+        builder: (context, snapshot) {
+          if (controller.isDetailError.isTrue) {
             return const Placeholder();
-          },
-        ),
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          return Text(controller.courseDetail.toString());
+        },
       ),
     );
   }

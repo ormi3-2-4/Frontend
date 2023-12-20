@@ -10,7 +10,7 @@ class CourseController extends GetxController {
 
   RxList<CoursePreview> courseList = <CoursePreview>[].obs;
   RxBool isError = false.obs;
-  Rx<CourseDetail?> courseDetail = (null).obs;
+  Rx<CourseDetail?> courseDetail = null.obs;
   RxBool isDetailError = false.obs;
 
   Future<void> getCourseList() async {
@@ -35,7 +35,7 @@ class CourseController extends GetxController {
 
     switch (res) {
       case BaseResponseData():
-        courseDetail.value = res.data.data;
+        courseDetail = res.data.data.obs;
         isError = false.obs;
         break;
       case BaseResponseError():
