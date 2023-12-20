@@ -17,3 +17,11 @@ class _Record {
   String get list => '$_prefix/';
   String detail(int recordId) => '$_prefix/$recordId/';
 }
+
+class _Course {
+  final String _prefix = "/course";
+
+  String get list => '$_prefix/';
+  String get create => '$_prefix/';
+  String detail(int courseId) => '$_prefix/$courseId/';
+}
