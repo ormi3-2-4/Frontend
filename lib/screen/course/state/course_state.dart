@@ -11,6 +11,7 @@ class CourseController extends GetxController {
   RxList<CoursePreview> courseList = <CoursePreview>[].obs;
   RxBool isError = false.obs;
   Rx<CourseDetail?> courseDetail = (null).obs;
+  RxBool isDetailError = false.obs;
 
   Future<void> getCourseList() async {
     await DioService.instance.addJwt();
@@ -34,7 +35,7 @@ class CourseController extends GetxController {
 
     switch (res) {
       case BaseResponseData():
-        courseDetail = res.data.data.obs;
+        courseDetail.value = res.data.data;
         isError = false.obs;
         break;
       case BaseResponseError():
