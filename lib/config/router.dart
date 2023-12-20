@@ -48,7 +48,7 @@ abstract class AppRouter {
       // 기록 히스토리
       GoRoute(
         path: RecrodHistoryScreen.routhPath,
-        name: RecordScreen.routeName,
+        name: RecrodHistoryScreen.routeName,
         builder: (context, state) => const RecrodHistoryScreen(),
       )
     ],
