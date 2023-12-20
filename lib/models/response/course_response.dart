@@ -14,3 +14,14 @@ class CoursePreviewResponse with _$CoursePreviewResponse {
   factory CoursePreviewResponse.fromJson(Map<String, dynamic> json) =>
       _$CoursePreviewResponseFromJson(json);
 }
+
+@freezed
+class CourseDeatilResponse with _$CourseDeatilResponse {
+  const CourseDeatilResponse._();
+  const factory CourseDeatilResponse({
+    required CourseDetail data,
+  }) = _CourseDeatilResponse;
+
+  factory CourseDeatilResponse.fromJson(Map<String, dynamic> json) =>
+      _$CourseDeatilResponseFromJson(json);
+}

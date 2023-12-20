@@ -28,9 +28,19 @@ class CourseController extends GetxController {
     }
   }
 
-  @override
-  Future<void> onInit() async {
-    await getCourseList();
-    super.onInit();
+  Future<void> getCourseDetail(int courseId) async {
+    await DioService.instance.addJwt();
+    final res = await CourseRepository(DioService.instance.dio).getCourseDetail(courseId);
+
+    switch (res) {
+      case BaseResponseData():
+        courseDetail = res.data.data.obs;
+        isError = false.obs;
+        break;
+      case BaseResponseError():
+        isError = true.obs;
+      default:
+        break;
+    }
   }
 }

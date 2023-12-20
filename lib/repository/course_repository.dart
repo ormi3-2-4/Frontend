@@ -19,4 +19,14 @@ class CourseRepository {
       return BaseResponse.error(AppError(error: e.error ?? ''));
     }
   }
+
+  Future<BaseResponse<CourseDeatilResponse>> getCourseDetail(int courseId) async {
+    try {
+      final res = await dio.get(Endpoint.course.detail(courseId));
+      final responseModel = CourseDeatilResponse.fromJson(res.data);
+      return BaseResponse.data(responseModel);
+    } on DioException catch (e) {
+      return BaseResponse.error(AppError(error: e.error ?? ''));
+    }
+  }
 }
