@@ -10,10 +10,20 @@ class CourseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CourseController());
+    Get.put(CourseController());
+    final controller = CourseController.instance;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Course Screen")),
+      body: FutureBuilder<void>(
+        future: controller.getCourseList(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Obx(() => Text(controller.courseList.toString()));
+        },
+      ),
     );
   }
 }
