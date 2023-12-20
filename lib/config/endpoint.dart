@@ -1,6 +1,7 @@
 abstract class Endpoint {
   static _User user = _User();
   static _Record record = _Record();
+  static _Course course = _Course();
 }
 
 class _User {
