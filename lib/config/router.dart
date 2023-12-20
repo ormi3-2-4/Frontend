@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ormi2_4/screen/course/course_screen.dart';
 import 'package:ormi2_4/screen/login/login_screen.dart';
 import 'package:ormi2_4/screen/record/record_screen.dart';
 import 'package:ormi2_4/screen/record_history/record_history_screen.dart';
@@ -50,6 +51,12 @@ abstract class AppRouter {
         path: RecrodHistoryScreen.routhPath,
         name: RecrodHistoryScreen.routeName,
         builder: (context, state) => const RecrodHistoryScreen(),
+      ),
+      // 추천
+      GoRoute(
+        path: CourseScreen.routePath,
+        name: CourseScreen.routeName,
+        builder: (context, state) => const CourseScreen(),
       )
     ],
   );

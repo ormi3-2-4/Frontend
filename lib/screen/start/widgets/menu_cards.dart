@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ormi2_4/screen/course/course_screen.dart';
 import 'package:ormi2_4/screen/record_history/record_history_screen.dart';
 
 class MenuCards extends StatelessWidget {
@@ -18,7 +19,7 @@ class MenuCards extends StatelessWidget {
               children: [
                 Flexible(
                     child: _MenuCard("운동기록", Icons.history,
-                        onTap: () => context.go(RecrodHistoryScreen.routhPath))),
+                        onTap: () => context.push(RecrodHistoryScreen.routhPath))),
                 Flexible(
                     child: _MenuCard("커뮤니티", Icons.people, onTap: () {
                   // TODO: 커뮤니티 페이지로 이동
@@ -35,7 +36,7 @@ class MenuCards extends StatelessWidget {
                 })),
                 Flexible(
                     child: _MenuCard("운동 코스 추천", Icons.search, onTap: () {
-                  // TODO: 운동 코스 페이지로 이동
+                  context.push(CourseScreen.routePath);
                 })),
               ],
             ),
