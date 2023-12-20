@@ -1,5 +1,6 @@
 abstract class Endpoint {
-  static _User get user => _User();
+  static _User user = _User();
+  static _Record record = _Record();
 }
 
 class _User {
