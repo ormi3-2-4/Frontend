@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ormi2_4/screen/course/state/course_state.dart';
+import 'package:ormi2_4/screen/course/widgets/course_preview_card_wdiget.dart';
 
 class CourseScreen extends StatelessWidget {
   const CourseScreen({super.key});
@@ -21,7 +22,10 @@ class CourseScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          return Obx(() => Text(controller.courseList.toString()));
+          return Obx(() => ListView.builder(
+                itemCount: controller.courseList.length,
+                itemBuilder: (context, index) => CoursePreviewCard(controller.courseList[index]),
+              ));
         },
       ),
     );
