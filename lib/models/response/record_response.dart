@@ -10,8 +10,8 @@ class RecordHistoryResponse with _$RecordHistoryResponse {
   const RecordHistoryResponse._();
   const factory RecordHistoryResponse({
     required int count,
-    @Default(null) required int? next,
-    @Default(null) required int? pervious,
+    @Default(null) int? next,
+    @Default(null) int? pervious,
     required List<Record> results,
   }) = _RecordHistoryResponse;
 
