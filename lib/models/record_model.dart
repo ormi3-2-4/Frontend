@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ormi2_4/models/enums.dart';
+
+import '../common/latlng_util.dart';
 
 part 'record_model.freezed.dart';
 part 'record_model.g.dart';
@@ -13,7 +16,9 @@ class Record with _$Record {
       required DateTime startAt,
       @Default(null) DateTime? endAt,
       @Default(null) String? staticMap,
-      required String coords,
+      @JsonKey(name: "coords", fromJson: jsonToLatLng, toJson: latLngtoJson)
+      @Default([])
+      List<LatLng> coords,
       required double distance,
       required String time,
       required DateTime createdAt,
