@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ormi2_4/screen/record_history/state/record_history_state.dart';
 
@@ -51,6 +52,26 @@ class HistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+        child: Row(
+          children: [
+            Column(
+              children: [
+                Text(record.kind.kName, style: context.textTheme.headlineMedium),
+                SizedBox(height: 10.h),
+                Text(record.time),
+                Text("${record.distance} km"),
+                Text("${record.speed} km/h"),
+              ],
+            ),
+            const Spacer(),
+            Text("${record.calorie} kcal"),
+            if (record.images.isNotEmpty) Image.network(record.images.first)
+          ],
+        ),
+      ),
+    );
   }
 }

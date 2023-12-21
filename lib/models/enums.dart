@@ -2,11 +2,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 enum Kind {
   @JsonValue("WALK")
-  walk,
+  walk("걷기"),
 
   @JsonValue("RUN")
-  run,
+  run("런닝"),
 
   @JsonValue("BIKE")
-  bike
+  bike("자전기");
+
+  final String kName;
+  const Kind(this.kName);
 }

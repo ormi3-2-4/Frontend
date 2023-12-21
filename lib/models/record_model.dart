@@ -20,6 +20,7 @@ class Record with _$Record {
       @Default([])
       List<LatLng> coords,
       required double distance,
+      required double speed,
       required String time,
       required DateTime createdAt,
       required Kind kind,
