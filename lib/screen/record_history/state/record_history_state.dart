@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:ormi2_4/models/response/base_response.dart';
-import 'package:ormi2_4/models/response/record_response.dart';
 import 'package:ormi2_4/repository/record_repository.dart';
 import 'package:ormi2_4/service/dio_service.dart';
 
@@ -20,7 +19,7 @@ class RecordHistoryController extends GetxController {
 
     switch (res) {
       case BaseResponseData():
-        final response = ((res).data as RecordHistoryResponse);
+        final response = res.data;
         records.value = response.results;
         recordCount.value = response.count;
         isError.value = false;

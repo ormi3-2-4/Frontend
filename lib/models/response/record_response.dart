@@ -18,3 +18,5 @@ class RecordHistoryResponse with _$RecordHistoryResponse {
   factory RecordHistoryResponse.fromJson(Map<String, dynamic> json) =>
       _$RecordHistoryResponseFromJson(json);
 }
+
+
