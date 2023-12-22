@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/screen/record/state/record_state.dart';
 
 class RunningStateWidget extends StatelessWidget {
@@ -35,7 +36,10 @@ class RunningStateWidget extends StatelessWidget {
             }),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              context.pop();
+              Get.delete<RecordController>();
+            },
             child: const Text("종료"),
           )
         ],

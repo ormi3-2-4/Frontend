@@ -32,17 +32,4 @@ class RecordController extends GetxController {
     });
     super.onInit();
   }
-
-  @override
-  void onClose() {
-    _positionStream.drain();
-
-    super.onClose();
-  }
-
-  @override
-  void dispose() {
-    print("RecordController disposed");
-    super.dispose();
-  }
 }

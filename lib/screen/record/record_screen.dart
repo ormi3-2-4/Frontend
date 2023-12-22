@@ -1,41 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ormi2_4/screen/record/state/record_state.dart';
 import 'package:ormi2_4/screen/record/widgets/choice_widget.dart';
 import 'package:ormi2_4/screen/record/widgets/running_state_widget.dart';
 
-class RecordScreen extends StatefulWidget {
+class RecordScreen extends StatelessWidget {
   const RecordScreen({Key? key}) : super(key: key);
 
   static const routePath = '/record';
   static const routeName = 'RecordScreen';
 
   @override
-  State<RecordScreen> createState() => _RecordScreenState();
-}
-
-class _RecordScreenState extends State<RecordScreen> {
-  final controller = Get.put(RecordController());
-
-  @override
-  void dispose() {
-    Get.delete<RecordController>();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    
+    final controller = RecordController.instance;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
-      ),
       body: SafeArea(
+        top: false,
         child: Obx(
           () => Stack(
             children: [
