@@ -60,8 +60,8 @@ class _StartScreenState extends State<StartScreen> {
 
                     return CircleAvatar(
                       radius: 35.r,
-                      backgroundImage:
-                          user?.profileImage == null ? null : NetworkImage(user!.profileImage!),
+                      // backgroundImage:
+                      //     user?.profileImage == null ? null : NetworkImage(user!.profileImage!),
                       child: InkWell(
                           borderRadius: BorderRadius.circular(100.r),
                           onTap: () {
