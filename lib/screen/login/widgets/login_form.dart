@@ -11,19 +11,31 @@ import '../../../service/user_service.dart';
 class LoginFormWidget extends HookWidget {
   const LoginFormWidget({super.key});
 
-  InputDecoration decoration({bool isPassword = false}) {
+  InputDecoration decoration() {
     return InputDecoration(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: Colors.white),
+        borderSide: const BorderSide(
+          color: Color(0xff2196f3),
+        ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: Colors.white),
+        borderSide: const BorderSide(
+          color: Color(0xff2196f3),
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: const BorderSide(
+          color: Color(0xff2196f3),
+        ),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: Colors.red),
+        borderSide: const BorderSide(
+          color: Color(0xffba1b1b),
+        ),
       ),
     );
   }
@@ -65,7 +77,7 @@ class LoginFormWidget extends HookWidget {
             TextFormField(
               controller: passwordController,
               obscureText: true,
-              decoration: decoration(isPassword: true),
+              decoration: decoration(),
             ),
             SizedBox(height: 30.h),
             Center(
@@ -89,7 +101,7 @@ class LoginFormWidget extends HookWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () => context.go(RegisterScreen.routePath),
+                onPressed: () => context.push(RegisterScreen.routePath),
                 child: const Text("회원가입"),
               ),
             )
