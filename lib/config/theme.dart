@@ -37,6 +37,9 @@ final theme = ThemeData(
   // ElevatedButton
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
+      shape: MaterialStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
       backgroundColor: MaterialStateColor.resolveWith((states) => const Color(0xff2196f3)),
       foregroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
       textStyle: MaterialStateTextStyle.resolveWith(

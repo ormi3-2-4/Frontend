@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
 import 'package:ormi2_4/screen/record/record_screen.dart';
+import 'package:ormi2_4/screen/record/state/record_state.dart';
 
 class StartRunningCardWidget extends StatelessWidget {
   const StartRunningCardWidget({super.key});
@@ -12,8 +15,9 @@ class StartRunningCardWidget extends StatelessWidget {
     return Container(
       height: 200.h,
       width: context.screenWidth * 0.9,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(20.r), color: const Color(0xff424242)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.r),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -32,6 +36,7 @@ class StartRunningCardWidget extends StatelessWidget {
                   SizedBox(height: 10.h),
                   ElevatedButton(
                       onPressed: () {
+                        Get.put(RecordController());
                         context.push(RecordScreen.routePath);
                       },
                       child: const Text('운동 시작'))

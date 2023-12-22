@@ -61,8 +61,6 @@ class _MenuCard extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xff424242),
-          foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
           padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
         ),
