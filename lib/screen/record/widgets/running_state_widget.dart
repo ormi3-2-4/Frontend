@@ -34,11 +34,14 @@ class RunningStateWidget extends StatelessWidget {
                     break;
                 }
               },
-              child: Text(switch (runningState) {
-                RunningState.running => '일시 정지',
-                RunningState.paused => '재개',
-                RunningState.stopped => '일시 정지'
-              }),
+              child: Text(
+                switch (runningState) {
+                  RunningState.running => '일시 정지',
+                  RunningState.paused => '재개',
+                  RunningState.stopped => '일시 정지'
+                },
+                style: TextStyle(fontSize: 20.sp),
+              ),
             ),
           ),
           SizedBox(width: 40.w),
@@ -47,10 +50,14 @@ class RunningStateWidget extends StatelessWidget {
             width: 150.w,
             child: ElevatedButton(
               onPressed: () async {
+                contoller.onPressedEnd();
                 context.pop();
                 Get.delete<RecordController>();
               },
-              child: const Text("종료"),
+              child: Text(
+                "종료",
+                style: TextStyle(fontSize: 20.sp),
+              ),
             ),
           )
         ],

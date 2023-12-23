@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:logger/logger.dart';
@@ -8,30 +8,17 @@ import 'package:ormi2_4/screen/record/state/record_state.dart';
 import 'package:ormi2_4/screen/record/widgets/choice_widget.dart';
 import 'package:ormi2_4/screen/record/widgets/running_state_widget.dart';
 
-class RecordScreen extends StatefulWidget {
+class RecordScreen extends HookWidget {
   const RecordScreen({Key? key}) : super(key: key);
 
   static const routePath = '/record';
   static const routeName = 'RecordScreen';
 
   @override
-  State<RecordScreen> createState() => _RecordScreenState();
-}
-
-class _RecordScreenState extends State<RecordScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    Geolocator.getPositionStream().listen((event) {
-      RecordController.instance.currentLocation.value = LatLng(event.latitude, event.longitude);
-      Logger().i('lat: ${event.latitude}, lng: ${event.longitude}');
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final controller = RecordController.instance;
+
+
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -40,14 +27,16 @@ class _RecordScreenState extends State<RecordScreen> {
             children: [
               // 지도
               GoogleMap(
-                initialCameraPosition:
-                    CameraPosition(target: controller.currentLocation.value, zoom: 18),
+                initialCameraPosition: CameraPosition(target: controller.currentLocation.value, zoom: 18),
                 mapToolbarEnabled: true,
                 compassEnabled: true,
                 myLocationEnabled: true,
-                myLocationButtonEnabled: true,
                 mapType: MapType.normal,
-                zoomControlsEnabled: true,
+                rotateGesturesEnabled: false,
+                tiltGesturesEnabled: false,
+                zoomControlsEnabled: false,
+                scrollGesturesEnabled: false,
+                myLocationButtonEnabled: false,
                 onMapCreated: (mapController) {
                   mapController.animateCamera(
                     CameraUpdate.newCameraPosition(

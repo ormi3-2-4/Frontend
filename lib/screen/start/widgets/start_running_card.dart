@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
 import 'package:ormi2_4/screen/record/record_screen.dart';
 import 'package:ormi2_4/screen/record/state/record_state.dart';
@@ -39,11 +37,6 @@ class StartRunningCardWidget extends StatelessWidget {
                   ElevatedButton(
                       onPressed: () async {
                         Get.put(RecordController());
-
-                        final currentLocation = await Geolocator.getCurrentPosition();
-                        final controller = RecordController.instance;
-                        controller.currentLocation.value =
-                            LatLng(currentLocation.latitude, currentLocation.longitude);
 
                         context.push(RecordScreen.routePath);
                       },
