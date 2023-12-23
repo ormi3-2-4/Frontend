@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
@@ -8,8 +7,17 @@ import 'package:ormi2_4/screen/start/start_screen.dart';
 
 import '../../../service/user_service.dart';
 
-class LoginFormWidget extends HookWidget {
+class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({super.key});
+
+  @override
+  State<LoginFormWidget> createState() => _LoginFormWidgetState();
+}
+
+class _LoginFormWidgetState extends State<LoginFormWidget> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   InputDecoration decoration() {
     return InputDecoration(
@@ -54,11 +62,6 @@ class LoginFormWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final formKey = GlobalKey<FormState>();
-    final userService = UserService.instance;
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Form(
@@ -86,6 +89,7 @@ class LoginFormWidget extends HookWidget {
                 width: context.screenWidth * 0.6,
                 child: ElevatedButton(
                     onPressed: () async {
+                      final userService = UserService.instance;
                       if (formKey.currentState!.validate()) {
                         await userService.login(emailController.text, passwordController.text);
 
