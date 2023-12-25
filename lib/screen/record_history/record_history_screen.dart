@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ormi2_4/models/enums.dart';
 import 'package:ormi2_4/screen/record_detail/record_detail_screen.dart';
 import 'package:ormi2_4/screen/record_history/state/record_history_state.dart';
 
@@ -52,6 +53,17 @@ class HistoryCard extends StatelessWidget {
 
   final Record record;
 
+  Widget showIcon(Kind kind) {
+    switch (kind) {
+      case Kind.walk:
+        return const Icon(Icons.directions_walk_rounded, color: Colors.white);
+      case Kind.run:
+        return const Icon(Icons.directions_run_rounded, color: Colors.white);
+      case Kind.bike:
+        return const Icon(Icons.pedal_bike_rounded, color: Colors.white);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -62,16 +74,54 @@ class HistoryCard extends StatelessWidget {
           child: Row(
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(record.kind.kName, style: context.textTheme.headlineMedium),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.black, borderRadius: BorderRadius.circular(10.r)),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                    child: Row(
+                      children: [
+                        showIcon(record.kind),
+                        SizedBox(width: 5.w),
+                        Text(record.kind.kName,
+                            style: context.textTheme.bodyLarge?.copyWith(color: Colors.white)),
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 10.h),
-                  Text(record.time),
-                  Text("${record.distance} km"),
-                  Text("${record.speed} km/h"),
+                  Row(
+                    children: [
+                      Image.asset('assets/tabler_clock.png'),
+                      SizedBox(width: 5.w),
+                      Text(record.time, style: context.textTheme.bodyMedium),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset('assets/road.png'),
+                      SizedBox(width: 5.w),
+                      Text("${record.distance} km"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset('assets/speed.png'),
+                      SizedBox(width: 5.w),
+                      Text("${record.speed} km/h"),
+                    ],
+                  ),
                 ],
               ),
               const Spacer(),
-              Text("${record.calorie} kcal"),
+
+              // 칼로리
+              Column(
+                children: [
+                  Image.asset('assets/fire.png'),
+                  Text("${record.calorie} kcal"),
+                ],
+              ),
               if (record.images.isNotEmpty) Image.network(record.images.first)
             ],
           ),
