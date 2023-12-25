@@ -19,9 +19,9 @@ class Record with _$Record {
       @JsonKey(name: "coords", fromJson: jsonToLatLng, toJson: latLngtoJson)
       @Default([])
       List<LatLng> coords,
-      required double distance,
+      @Default(0.0) double distance,
       required double speed,
-      required String time,
+      @Default('') String time,
       required DateTime createdAt,
       required Kind kind,
       required List<String> images,

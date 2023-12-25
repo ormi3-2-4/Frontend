@@ -25,7 +25,7 @@ class RecordRepository {
 
   Future<BaseResponse<Record>> createRecord() async {
     try {
-      final res = await dio.post(Endpoint.record.create, data: {"kind": Kind.run});
+      final res = await dio.post(Endpoint.record.create, data: {"kind": "RUN"});
       final responseModel = Record.fromJson(res.data);
       return BaseResponse.data(responseModel);
     } on DioException catch (e) {

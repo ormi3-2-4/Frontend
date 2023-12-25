@@ -17,7 +17,7 @@ class _Record {
   String get create => '$_prefix/';
   String get list => '$_prefix/';
   String detail(int recordId) => '$_prefix/$recordId/';
-  String endRecord(int recordId) => '$_prefix/$recordId/finish';
+  String endRecord(int recordId) => '$_prefix/$recordId/finish/';
 }
 
 class _Course {

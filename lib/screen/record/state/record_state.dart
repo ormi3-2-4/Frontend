@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,7 +24,9 @@ class RecordController extends GetxController {
   Rx<LatLng> currentLocation = const LatLng(0, 0).obs;
   RxDouble speed = 0.0.obs;
   Rx<DateTime> startAt = DateTime.now().obs;
-  RxString time = "".obs;
+  Duration _time = Duration.zero;
+  RxString time = '00:00'.obs;
+  Timer? timer;
   Record? _record;
 
   Future<void> createRecord() async {
@@ -39,6 +43,8 @@ class RecordController extends GetxController {
       default:
         break;
     }
+
+    Logger().d(_record);
   }
 
   Future<void> updateRecord() async {
@@ -80,9 +86,6 @@ class RecordController extends GetxController {
           coords.add(LatLng(position.latitude, position.longitude));
           Logger().i(LatLng(position.latitude, position.longitude));
           speed.value = position.speed;
-
-          final diff = startAt.value.difference(position.timestamp);
-          time.value = "${diff.inMinutes} : ${diff.inSeconds % 60}";
         }
       },
     );
@@ -90,6 +93,15 @@ class RecordController extends GetxController {
 
   void changeRunningState(RunningState state) {
     runningState.value = state;
+
+    if (state == RunningState.running) {
+      timer = Timer.periodic(const Duration(seconds: 1), (_) {
+        _time += const Duration(seconds: 1);
+        time.value = "${_time.inMinutes}:${_time.inSeconds % 60}";
+      });
+    } else if (state == RunningState.paused) {
+      timer?.cancel();
+    }
   }
 
   void changeKind(Kind kind) {
@@ -98,10 +110,16 @@ class RecordController extends GetxController {
 
   Future<void> onPressedEnd() async {
     Logger().d(coords);
+    timer?.cancel();
+    await endRecord();
   }
 
   @override
   void onInit() {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      _time += const Duration(seconds: 1);
+      time.value = "${_time.inMinutes}: ${_time.inSeconds % 60}";
+    });
     listenCurrentPosition();
     super.onInit();
   }

@@ -10,13 +10,11 @@ class RecordHistoryResponse with _$RecordHistoryResponse {
   const RecordHistoryResponse._();
   const factory RecordHistoryResponse({
     required int count,
-    @Default(null) int? next,
-    @Default(null) int? pervious,
+    @Default(null) String? next,
+    @Default(null) String? pervious,
     required List<Record> results,
   }) = _RecordHistoryResponse;
 
   factory RecordHistoryResponse.fromJson(Map<String, dynamic> json) =>
       _$RecordHistoryResponseFromJson(json);
 }
-
-

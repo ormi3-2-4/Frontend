@@ -37,6 +37,8 @@ class StartRunningCardWidget extends StatelessWidget {
                   ElevatedButton(
                       onPressed: () async {
                         Get.put(RecordController());
+                        final controller = RecordController.instance;
+                        await controller.createRecord();
 
                         context.push(RecordScreen.routePath);
                       },
