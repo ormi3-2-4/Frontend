@@ -45,3 +45,12 @@ app.*.map.json
 
 # config files
 *.env
+
+
+# ios
+Podfile.lock
+pubspec.lock
+
+# generated file
+*.freezed.dart
+*.g.dart

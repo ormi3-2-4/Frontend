@@ -33,15 +33,14 @@ dependencies:
 
   # 상태관리
   get: ^4.6.6
+  flutter_hooks:
 
   # 지도
   google_maps_flutter: ^2.5.0
-
-  # GPS
   geolocator: ^10.1.0
 
   # 라우팅
-  go_router: ^6.2.0
+  go_router: ^12.1.3
 
   # 네트워크 통신 관련
   flutter_secure_storage: ^9.0.0
@@ -57,6 +56,10 @@ dependencies:
 
   # 설정
   flutter_dotenv: ^5.1.0
+  flutter_screenutil: ^5.9.0
+
+  # 카메라 설정
+  image_picker: ^1.0.5
 
 
 
