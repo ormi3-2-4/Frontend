@@ -17,6 +17,7 @@ class RecordController extends GetxController {
   static RecordController get instance => Get.find();
   // RxList<Polyline> polylines = <Polyline>[].obs;
   RxList<LatLng> coords = <LatLng>[].obs;
+  Rx<Polyline> polyline = const Polyline(polylineId: PolylineId('1'), points: []).obs;
 
   Rx<RunningState> runningState = RunningState.running.obs;
   Rx<Kind> kind = Kind.run.obs;
@@ -86,6 +87,8 @@ class RecordController extends GetxController {
           coords.add(LatLng(position.latitude, position.longitude));
           Logger().i(LatLng(position.latitude, position.longitude));
           speed.value = position.speed;
+
+          polyline.value = polyline.value.copyWith(pointsParam: coords);
         }
       },
     );
@@ -104,8 +107,9 @@ class RecordController extends GetxController {
     }
   }
 
-  void changeKind(Kind kind) {
+  Future<void> changeKind(Kind kind) async {
     this.kind.value = kind;
+    await updateRecord();
   }
 
   Future<void> onPressedEnd() async {

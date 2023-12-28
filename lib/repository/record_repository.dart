@@ -45,7 +45,13 @@ class RecordRepository {
 
   Future<BaseResponse<Record>> updateRecord(int recordId, Kind kind) async {
     try {
-      final res = await dio.patch(Endpoint.record.detail(recordId), data: {"kind": kind});
+      final res = await dio.patch(Endpoint.record.detail(recordId), data: {
+        "kind": switch (kind) {
+          Kind.walk => "WALK",
+          Kind.run => "RUN",
+          Kind.bike => "BIKE",
+        }
+      });
       final responseModel = Record.fromJson(res.data);
       return BaseResponse.data(responseModel);
     } on DioException catch (e) {
@@ -54,8 +60,10 @@ class RecordRepository {
   }
 
   Future<BaseResponse<Record>> endRecord(int recordId, List<LatLng> coords) async {
+    List<List<double>> coordsList = List.from(coords.map((e) => [e.latitude, e.longitude]));
     try {
-      final res = await dio.patch(Endpoint.record.endRecord(recordId), data: {"coords": "$coords"});
+      final res =
+          await dio.patch(Endpoint.record.endRecord(recordId), data: {"coords": "$coordsList"});
       final responseModel = Record.fromJson(res.data);
       return BaseResponse.data(responseModel);
     } on DioException catch (e) {

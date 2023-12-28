@@ -38,6 +38,7 @@ class RecordScreen extends HookWidget {
                 zoomControlsEnabled: false,
                 scrollGesturesEnabled: false,
                 myLocationButtonEnabled: false,
+                polylines: {controller.polyline.value},
                 onMapCreated: (mapController) {
                   mapController.animateCamera(
                     CameraUpdate.newCameraPosition(

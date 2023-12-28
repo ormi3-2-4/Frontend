@@ -6,7 +6,7 @@ class DioService extends GetxService {
   static DioService get instance => Get.find();
 
   final _dio = Dio(BaseOptions(
-    baseUrl: 'http://localhost:8000',
+    baseUrl: 'http://43.202.223.133:8000',
   ));
 
   Dio get dio => _dio;
