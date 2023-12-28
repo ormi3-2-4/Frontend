@@ -11,13 +11,13 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Register")),
+      appBar: AppBar(title: const Text("Register")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("회원가입", style: context.textTheme.displayLarge),
-            RegisterFormWidget(),
+            const RegisterFormWidget(),
           ],
         ),
       ),

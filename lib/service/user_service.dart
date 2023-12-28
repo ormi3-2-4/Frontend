@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:ormi2_4/models/token.dart';
 import 'package:ormi2_4/models/response/base_response.dart';
 import 'package:ormi2_4/models/response/user_response.dart';
+import 'package:ormi2_4/models/token.dart';
 import 'package:ormi2_4/repository/account_repository.dart';
 import 'package:ormi2_4/service/dio_service.dart';
 import 'package:ormi2_4/service/storage_service.dart';
@@ -15,7 +15,7 @@ class UserService extends GetxService {
 
   Rx<User?> user = (null).obs;
 
-  bool get isLogin => user.value != null;
+  RxBool isLogin = false.obs;
 
   Future<void> autoLogin() async {
     isLoading.value = true;
@@ -39,10 +39,12 @@ class UserService extends GetxService {
       case BaseResponseData():
         final response = res.data as UserLoginResponse;
         user = response.user.obs;
+        isLogin.value = true;
         await writeToken(response.token);
         break;
       case BaseResponseError():
         user.value = null;
+        isLogin.value = false;
         break;
       default:
         break;

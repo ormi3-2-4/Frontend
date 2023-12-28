@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ormi2_4/common/buildcontext_utils.dart';
 import 'package:ormi2_4/screen/register/register_screen.dart';
@@ -18,28 +17,34 @@ class LoginFormWidget extends StatefulWidget {
 class _LoginFormWidgetState extends State<LoginFormWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
   final formKey = GlobalKey<FormState>();
 
-  final userService = UserService.instance;
-
-  String? passwordErrorText;
-
-  InputDecoration decoration({bool isPassword = false}) {
+  InputDecoration decoration() {
     return InputDecoration(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: Colors.white),
+        borderSide: const BorderSide(
+          color: Color(0xff2196f3),
+        ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: Colors.white),
+        borderSide: const BorderSide(
+          color: Color(0xff2196f3),
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: const BorderSide(
+          color: Color(0xff2196f3),
+        ),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(color: Colors.red),
+        borderSide: const BorderSide(
+          color: Color(0xffba1b1b),
+        ),
       ),
-      errorText: isPassword ? passwordErrorText : null,
     );
   }
 
@@ -75,33 +80,32 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             TextFormField(
               controller: passwordController,
               obscureText: true,
-              decoration: decoration(isPassword: true),
+              decoration: decoration(),
             ),
             SizedBox(height: 30.h),
             Center(
               child: SizedBox(
                 height: 50.h,
                 width: context.screenWidth * 0.6,
-                child: Obx(() {
-                  return ElevatedButton(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          await userService.login(emailController.text, passwordController.text);
+                child: ElevatedButton(
+                    onPressed: () async {
+                      final userService = UserService.instance;
+                      if (formKey.currentState!.validate()) {
+                        await userService.login(emailController.text, passwordController.text);
 
-                          if (userService.isLogin) {
-                            context.go(StartScreen.routePath);
-                          }
+                        if (userService.isLogin.value) {
+                          context.go(StartScreen.routePath);
                         }
-                      },
-                      child: const Text("로그인"));
-                }),
+                      }
+                    },
+                    child: const Text("로그인")),
               ),
             ),
             SizedBox(height: 20.h),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () => context.go(RegisterScreen.routePath),
+                onPressed: () => context.push(RegisterScreen.routePath),
                 child: const Text("회원가입"),
               ),
             )
